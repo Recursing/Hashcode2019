@@ -29,9 +29,11 @@ function loadData (filename) {
         gameStructure.foto[i].id = i;        
 		gameStructure.foto[i].orientation = workingLine[0];
         gameStructure.foto[i].n_tag = 1.*workingLine[1];
-        gameStructure.foto[i].tags = {};
+        //gameStructure.foto[i].tags = {};
+        gameStructure.foto[i].tags = [];
         for (var j=0; j < gameStructure.foto[i].n_tag; ++j) {
-            gameStructure.foto[i].tags[j] = workingLine[2 + j];
+            //gameStructure.foto[i].tags[workingLine[2 + j]] = 1;
+            gameStructure.foto[i].tags.push(workingLine[2 + j]);
         }
 	}
 
