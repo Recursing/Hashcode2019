@@ -60,19 +60,20 @@ solution.forEach((v) => {
 
 function score (a, b) {
     var common = 0, onlyA = 0, onlyB = 0;
-    for (var i = 0; i < a.tags.length; ++i) {
-        if (b.tags[a.tags[i]] !== undefined) {
+    for (var key in a.tags) {
+        if (b.tags[key] !== undefined) {
             ++common;
         } else {
             ++onlyA;
         }
     }
-    for (var i = 0; i < a.tags.length; ++i) {
-        if (a.tags[b.tags[i]] === undefined) {
+    for (var key in b.tags) {
+        if (a.tags[key] === undefined) {
             ++onlyB;
         }
     }
 
-    return (common < onlyA ? (common < onlyB ? common : onlyB) : (onlyA < onlyB ? onlyA : onlyB));
+    var points = (common < onlyA ? (common < onlyB ? common : onlyB) : (onlyA < onlyB ? onlyA : onlyB));
+    return points;
 }
 
