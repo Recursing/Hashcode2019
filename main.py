@@ -17,11 +17,11 @@ def write_solution(fname, solution, real_ids):
 
 
 input_files = [
-    # "a_example.txt",
-    # "b_lovely_landscapes.txt",
+    "a_example.txt",
+    "b_lovely_landscapes.txt",
     "c_memorable_moments.txt",
-    # "d_pet_pictures.txt",
-    # "e_shiny_selfies.txt",
+    "d_pet_pictures.txt",
+    "e_shiny_selfies.txt",
 ]
 
 
