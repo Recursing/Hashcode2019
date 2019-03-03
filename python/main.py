@@ -2,7 +2,7 @@ from collections import Counter, defaultdict
 
 
 def read_lines(fname):
-    with open(fname, "r") as in_file:
+    with open("inputs/"+fname, "r") as in_file:
         lines = in_file.readlines()
     print("Read {} lines from {}".format(len(lines), fname))
     return lines
@@ -17,11 +17,11 @@ def write_solution(fname, solution, real_ids):
 
 
 input_files = [
-    "a_example.txt",
+#    "a_example.txt",
     "b_lovely_landscapes.txt",
-    "c_memorable_moments.txt",
-    "d_pet_pictures.txt",
-    "e_shiny_selfies.txt",
+#    "c_memorable_moments.txt",
+#    "d_pet_pictures.txt",
+#    "e_shiny_selfies.txt",
 ]
 
 
@@ -56,11 +56,14 @@ for ifile in input_files:
         landscape_id += 1
 
     verticals.sort(key=lambda x: len(x[0]))
+    used = set()
+    
     while verticals:
         (tags, real_id) = verticals[0]
-        other_verticals = verticals[1:]
+        used.add(real_id)
         union = lambda x: len(x[0] | tags) - len(x[0] & tags)
-        other_vertical = max(other_verticals, key=union)
+
+        other_vertical = max(((tv,ti) for tv, ti in verticals if ti not in used), key=union)
         other_tags, other_real_id = other_vertical
         tags = other_tags | tags
         ids = real_id, other_real_id
@@ -69,8 +72,7 @@ for ifile in input_files:
             tag_landscapes[tag].append(landscape_id)
         real_ids[landscape_id] = ids
         landscape_id += 1
-        other_verticals.remove(other_vertical)
-        verticals = other_verticals
+        used.add(other_real_id)
         print(len(verticals))
 
     print("Parsed {}".format(ifile))
@@ -100,7 +102,7 @@ for ifile in input_files:
         solution.append(last_photo[1])
         used.add(last_photo[1])
         unused_ids.remove(last_photo[1])
-        if len(used) % 100 == 0:
+        if len(used) % 1000 == 0:
             print(len(used))
 
     write_solution(ifile + "_solution.txt", solution, real_ids)
